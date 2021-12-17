@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./styles/App.css";
+import Navbar from "./components/Navbar";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Modal } from "./components/Modal";
+import React, { useState } from "react";
+//React hooks
 function App() {
+  const [show, setShow] = useState(false); //for modal
+  const closeModalHandler = () => setShow(false); //for modal
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    //rendering navbar and modal components
+    <>
+      <Router>
+        <Navbar />
+      </Router>
+      <div>
+        {show ? (
+          <div onClick={closeModalHandler} className="back-drop"></div>
+        ) : null}
+        <button onClick={() => setShow(true)} className="btn-openModal">
+          Open Me
+        </button>
+        <Modal show={show} close={closeModalHandler} />
+      </div>
+    </>
   );
 }
-
 export default App;
